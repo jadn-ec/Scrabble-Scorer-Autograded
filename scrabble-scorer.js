@@ -1,5 +1,6 @@
 // This assignment is inspired by a problem on Exercism (https://exercism.org/tracks/javascript/exercises/etl) that demonstrates Extract-Transform-Load using Scrabble's scoring system. 
 
+const { run } = require("jest");
 const input = require("readline-sync");
 
 const oldPointStructure = {
@@ -34,13 +35,13 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   console.log("Let's play some scrabble! ");
-
+   console.log("Let's play some scrabble!\n");
    let userWord = input.question("Enter a word to Score: ");
 
+   scorerPrompt(userWord);
    //oldScrabbleScorer(userWord);
    //simpleScorer(userWord);
-   vowelBonusScorer(userWord);
+   //vowelBonusScorer(userWord);
 };
 
 let newPointStructure = transform(oldPointStructure); 
@@ -96,17 +97,15 @@ const option2 = {
 
 const scoringAlgorithms = [option0, option1, option2];
 
-function scorerPrompt() {
-   console.log("Let's play some scrabble!\n");
-   let userWord = input.question("Enter a word to Score: ");
+function scorerPrompt(userWord) {
    console.log("Which scoring algorithm would you like to use?\n");
    console.log("0 - Simple: One point per character\n");
    console.log("1 - Vowel Bonus: Vowels are worth 3 points\n");
    console.log("2 - Scrabble: Uses scrabble point system\n");
    let userSelection = input.question("Enter 0, 1, or 2: ");
-   console.log("You chose: " + scoringAlgorithms[userSelection].name);
+   console.log(`You chose: ${scoringAlgorithms[userSelection].name}`);
    console.log(scoringAlgorithms[userSelection].description)
-   console.log("Score for '" + userWord + "': " + scoringAlgorithms[userSelection].scorerFunction(userWord))
+   console.log(`Score for ${userWord}: ${scoringAlgorithms[userSelection].scorerFunction(userWord)}`);
 }
 
 function transform(allStructures) {
@@ -118,17 +117,11 @@ function transform(allStructures) {
       newPointStructure[placeHolder] =  (Number(key));  
     }
    } 
-  
    return newPointStructure;
 }
 function runProgram() {
-   //initialPrompt();
-   scorerPrompt();     
-
-
+   initialPrompt();
 }
-
-
 
 // Don't write any code below this line //
 // And don't change these or your program will not run as expected //
